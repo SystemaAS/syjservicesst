@@ -19,7 +19,6 @@
   <bean id="dbConnectionTesterDaoServices" class="no.systema.jservices.model.dao.services.DbConnectionTesterDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
-  
   <bean id="cundfDaoServices" class="no.systema.jservices.model.dao.services.CundfDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
@@ -28,11 +27,11 @@
   </bean>
   
   
-  <!-- SKAT MAINTENANCE  Domain Dao's Services 
-  <bean id="kodtvaDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.todoDaoServicesImpl">
+  <!-- SKAT MAINTENANCE  Domain Dao's Services -->
+  <bean id="dktvkDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DktvkDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
-  -->
+  
   
   <!-- SKAT MAINTENANCE - IMPORT: Domain Dao's Services  
   <bean id="todoDaoServices" class="no.systema.jservices.skat.z.maintenance.skatimport.model.dao.services.todoDaoServicesImpl">
