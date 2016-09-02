@@ -31,15 +31,11 @@
   <bean id="dktvkDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DktvkDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
-  
-  
-  <!-- SKAT MAINTENANCE - IMPORT: Domain Dao's Services  
-  <bean id="todoDaoServices" class="no.systema.jservices.skat.z.maintenance.skatimport.model.dao.services.todoDaoServicesImpl">
+  <bean id="dkxghDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DkxghDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
-  -->
   
-  
+ 
   <!--///////////////////
         NativeExtractor 
       ///////////////////
