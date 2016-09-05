@@ -24,8 +24,13 @@ public class DKX030R_U {
 			if( (dao.getTggnr()!=null && !"".equals(dao.getTggnr())) && 
 				(dao.getTgtina()!=null && !"".equals(dao.getTgtina())) && 
 				(dao.getTgnaa()!=null && !"".equals(dao.getTgnaa())) && 
+				(dao.getTgpna()!=null && !"".equals(dao.getTgpna())) && 
+				(dao.getTgpsa()!=null && !"".equals(dao.getTgpsa())) && 
+				(dao.getTglka()!=null && !"".equals(dao.getTglka())) && 
+				(dao.getTggty()!=null && !"".equals(dao.getTggty())) && 
 				(dao.getTgtsd()!=null && !"".equals(dao.getTgtsd())) && 
 				(dao.getTgakny()!=null && !"".equals(dao.getTgakny())) &&
+				(dao.getTgakgm()!=null && !"".equals(dao.getTgakgm())) &&
 				(dao.getTggbl()!=null && !"".equals(dao.getTggbl())) && 
 				(dao.getTggvk()!=null && !"".equals(dao.getTggvk()))
 				
