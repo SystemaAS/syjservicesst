@@ -21,13 +21,14 @@ public class DKX030R_U {
 		if( (user!=null && !"".equals(user)) &&
 			(mode!=null && !"".equals(mode)) ){
 			//check dao
-			if( (dao.getTggnr()!=null && !"".equals(dao.getTggnr())) 
-				/*&& TODO
-				(dao.getDkvk_dts()!=null && !"".equals(dao.getDkvk_dts())) && 
-				(dao.getDkvk_dte()!=null && !"".equals(dao.getDkvk_dte())) && 
-				(dao.getDkvk_omr()!=null && !"".equals(dao.getDkvk_omr())) && 
-				(dao.getDkvk_krs()!=null && !"".equals(dao.getDkvk_krs()))
-				*/
+			if( (dao.getTggnr()!=null && !"".equals(dao.getTggnr())) && 
+				(dao.getTgtina()!=null && !"".equals(dao.getTgtina())) && 
+				(dao.getTgnaa()!=null && !"".equals(dao.getTgnaa())) && 
+				(dao.getTgtsd()!=null && !"".equals(dao.getTgtsd())) && 
+				(dao.getTgakny()!=null && !"".equals(dao.getTgakny())) &&
+				(dao.getTggbl()!=null && !"".equals(dao.getTggbl())) && 
+				(dao.getTggvk()!=null && !"".equals(dao.getTggvk()))
+				
 				  ){
 				
 			}else{
@@ -59,5 +60,34 @@ public class DKX030R_U {
 		}
 		
 		return retval;
+	}
+	
+	/**
+	 * 
+	 * @param dao
+	 */
+	public void updateNumericFieldsIfNull(DkxghDao dao){
+		String ZERO = "0";
+		if(dao.getTggty()==null || "".equals(dao.getTggty())){
+			dao.setTggty(ZERO);
+		}
+		if(dao.getTggbl()==null || "".equals(dao.getTggbl())){
+			dao.setTggbl(ZERO);
+		}
+		if(dao.getTggblb()==null || "".equals(dao.getTggblb())){
+			dao.setTggblb(ZERO);
+		}
+		if(dao.getTgkna()==null || "".equals(dao.getTgkna())){
+			dao.setTgkna(ZERO);
+		}
+		if(dao.getTgdt()==null || "".equals(dao.getTgdt())){
+			dao.setTgdt(ZERO);
+		}
+		if(dao.getTgdtr()==null || "".equals(dao.getTgdtr())){
+			dao.setTgdtr(ZERO);
+		}
+		if(dao.getTgprm()==null || "".equals(dao.getTgprm())){
+			dao.setTgprm(ZERO);
+		}
 	}
 }

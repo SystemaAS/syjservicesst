@@ -61,7 +61,7 @@ public class SkatMaintResponseOutputterController_DKX030 {
 	 * 
 	 * @return
 	 * @Example SELECT *: http://gw.systema.no:8080/syjservicesst/syjsDKX030R.do?user=OSCAR
-	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesst/syjsDKX030R.do?user=OSCAR&tggnt=TEST
+	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesst/syjsDKX030R.do?user=OSCAR&tggnr=TEST
 	 * 
 	 */
 	@RequestMapping(value="syjsDKX030R.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -74,7 +74,7 @@ public class SkatMaintResponseOutputterController_DKX030 {
 			logger.info("Inside syjsDKX030R");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
 			String user = request.getParameter("user");
-			
+			String oneMatch = request.getParameter("om");
 			//Check ALWAYS user in BRIDF
             String userName = this.bridfDaoServices.findNameById(user);
             //DEBUG --> logger.info("USERNAME:" + userName + "XX");
@@ -93,8 +93,13 @@ public class SkatMaintResponseOutputterController_DKX030 {
 				//do SELECT
 				logger.info("Before SELECT ...");
 	            if(dao.getTggnr()!=null && !"".equals(dao.getTggnr())){
-					logger.info("findById");
-					list = this.DkxghDaoServices.findById(dao.getTggnr(), dbErrorStackTrace);
+	            	if(oneMatch!=null && !"".equals(oneMatch)){
+	            		logger.info("findByIdExactMatch");
+	            		list = this.DkxghDaoServices.findByIdExactMatch(dao.getTggnr(), dbErrorStackTrace);
+	            	}else{
+	            		logger.info("findById");
+	            		list = this.DkxghDaoServices.findById(dao.getTggnr(), dbErrorStackTrace);
+	            	}
 				}else{
 					logger.info("getList (all)");
 					list = this.DkxghDaoServices.getList(dbErrorStackTrace);
@@ -184,11 +189,11 @@ public class SkatMaintResponseOutputterController_DKX030 {
 				  if(rulerLord.isValidInput(dao, userName, mode)){
 						logger.info("Before UPDATE ...");
 						List<DkxghDao> list = new ArrayList<DkxghDao>();
+						rulerLord.updateNumericFieldsIfNull(dao);
 						
 						//do ADD
 						if("A".equals(mode)){
-							/*
-							list = this.DkxghDaoServices.findForUpdate(dao.getDkvk_kd(), dao.getDkvk_dts(), dbErrorStackTrace);
+							list = this.DkxghDaoServices.findById(dao.getTggnr(), dbErrorStackTrace);
 							
 							//check if there is already such a code. If it does, stop the update
 							if(list!=null && list.size()>0){
@@ -197,9 +202,8 @@ public class SkatMaintResponseOutputterController_DKX030 {
 								status = "error";
 								sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 							}else{
-							*/
 								dmlRetval = this.DkxghDaoServices.insert(dao, dbErrorStackTrace);
-							//}
+							}
 						}else if("U".equals(mode)){
 							 dmlRetval = this.DkxghDaoServices.update(dao, dbErrorStackTrace);
 						}

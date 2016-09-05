@@ -20,7 +20,32 @@ public class DktvkDaoServicesImpl implements DktvkDaoServices {
 	private DbErrorMessageManager dbErrorMessageMgr = new DbErrorMessageManager();
 	
 	
-	
+	/**
+	 * Usually used for read-only scenarios (drop-down in GUI or other)
+	 */
+	public List getListDistinct(StringBuffer errorStackTrace){
+		List<DktvkDao> retval = new ArrayList<DktvkDao>();
+		
+		try{
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT distinct dkvk_kd ");
+			sql.append(" from dktvk ");
+			//sql.append(" FETCH FIRST 00 ROWS ONLY ");
+			
+			logger.info(sql.toString());
+			retval = this.jdbcTemplate.query( sql.toString(),  new DktvkMapper());
+		}catch(Exception e){
+			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
+			logger.info(writer.toString());
+			//Chop the message to comply to JSON-validation
+			errorStackTrace.append(this.dbErrorMessageMgr.getJsonValidDbException(writer));
+			retval = null;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 */
 	public List getList(StringBuffer errorStackTrace){
 		List<DktvkDao> retval = new ArrayList<DktvkDao>();
 		
@@ -30,7 +55,6 @@ public class DktvkDaoServicesImpl implements DktvkDaoServices {
 			//when issuing select * from ...
 			//The numeric formats MUST ALWAYS be converted to CHARs (IBM string equivalent to Oracle VARCHAR)
 			sql.append(this.getSELECT_CLAUSE());
-			sql.append(" from dktvk ");
 			//sql.append(" FETCH FIRST 00 ROWS ONLY ");
 			
 			logger.info(sql.toString());
@@ -54,7 +78,6 @@ public class DktvkDaoServicesImpl implements DktvkDaoServices {
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append(this.getSELECT_CLAUSE());
-			sql.append(" from dktvk ");
 			sql.append(" where dkvk_kd = ? ");
 			sql.append(" and dkvk_dts = ? ");
 			
@@ -78,7 +101,6 @@ public class DktvkDaoServicesImpl implements DktvkDaoServices {
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append(this.getSELECT_CLAUSE());
-			sql.append(" from dktvk ");
 			sql.append(" where dkvk_kd LIKE ? ");
 			
 			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { id + SQL_WILD_CARD }, new DktvkMapper());
@@ -188,9 +210,10 @@ public class DktvkDaoServicesImpl implements DktvkDaoServices {
 		//All columns with special characters (NO,SE,DK) such as ö,ä,ø, etc MUST be defined with CAPITAL LETTERS, otherwise the selection in SQL will be invalid
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT dkvk_kd, CHAR(dkvk_dts) dkvk_dts, CHAR(dkvk_dte) dkvk_dte, CHAR(dkvk_omr) dkvk_omr, CHAR(dkvk_krs) dkvk_krs ");
-		
+		sql.append(" from dktvk ");
 		return sql;
 	}
+	
 	
 	/**                                                                                                  
 	 * Wires jdbcTemplate                                                                                

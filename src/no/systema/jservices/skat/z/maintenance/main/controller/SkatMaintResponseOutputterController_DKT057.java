@@ -77,6 +77,7 @@ public class SkatMaintResponseOutputterController_DKT057 {
 			logger.info("Inside syjsDKT057R");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
 			String user = request.getParameter("user");
+			String distinct = request.getParameter("distinct");
 			
 			//Check ALWAYS user in BRIDF
             String userName = this.bridfDaoServices.findNameById(user);
@@ -104,7 +105,12 @@ public class SkatMaintResponseOutputterController_DKT057 {
 						list = this.dktvkDaoServices.findById(dao.getDkvk_kd(), dbErrorStackTrace);
 					}else{
 						logger.info("getList (all)");
-						list = this.dktvkDaoServices.getList(dbErrorStackTrace);
+						if(distinct!=null && !"".equals(distinct)){
+							list = this.dktvkDaoServices.getListDistinct(dbErrorStackTrace);
+						}else{
+							//default	
+							list = this.dktvkDaoServices.getList(dbErrorStackTrace);
+						}
 					}
 	            }
 				//process result
