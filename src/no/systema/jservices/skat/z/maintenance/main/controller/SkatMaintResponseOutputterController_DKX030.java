@@ -193,7 +193,7 @@ public class SkatMaintResponseOutputterController_DKX030 {
 						
 						//do ADD
 						if("A".equals(mode)){
-							list = this.DkxghDaoServices.findById(dao.getTggnr(), dbErrorStackTrace);
+							list = this.DkxghDaoServices.findByIdExactMatch(dao.getTggnr(), dbErrorStackTrace);
 							
 							//check if there is already such a code. If it does, stop the update
 							if(list!=null && list.size()>0){
