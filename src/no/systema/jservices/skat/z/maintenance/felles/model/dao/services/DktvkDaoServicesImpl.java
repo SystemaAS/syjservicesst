@@ -1,12 +1,12 @@
-package no.systema.jservices.skat.z.maintenance.main.model.dao.services;
+package no.systema.jservices.skat.z.maintenance.felles.model.dao.services;
 import java.io.Writer;
 import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DktvkDao;
-import no.systema.jservices.skat.z.maintenance.main.model.dao.mapper.DktvkMapper;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.entities.DktvkDao;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.mapper.DktvkMapper;
 import no.systema.main.util.DbErrorMessageManager;
 
 /**

@@ -1,4 +1,4 @@
-package no.systema.jservices.skat.z.maintenance.main.controller;
+package no.systema.jservices.skat.z.maintenance.felles.controller;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,9 +29,9 @@ import javax.servlet.http.HttpSession;
 
 //Application
 //import no.systema.jservices.model.dao.entities.GenericTableColumnsDao;
-import no.systema.jservices.skat.z.maintenance.main.controller.rules.DKT057R_U;
-import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DktvkDao;
-import no.systema.jservices.skat.z.maintenance.main.model.dao.services.DktvkDaoServices;
+import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKT057R_U;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.entities.DktvkDao;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.services.DktvkDaoServices;
 import no.systema.jservices.model.dao.services.BridfDaoServices;
 import no.systema.jservices.jsonwriter.JsonResponseWriter;
 //rules

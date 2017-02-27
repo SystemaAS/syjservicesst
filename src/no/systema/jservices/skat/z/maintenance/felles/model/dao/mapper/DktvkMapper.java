@@ -1,9 +1,9 @@
-package no.systema.jservices.skat.z.maintenance.main.model.dao.mapper;
+package no.systema.jservices.skat.z.maintenance.felles.model.dao.mapper;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 
-import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DktvkDao;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.entities.DktvkDao;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;

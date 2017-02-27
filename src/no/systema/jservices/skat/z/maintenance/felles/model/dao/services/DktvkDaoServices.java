@@ -1,5 +1,7 @@
-package no.systema.jservices.skat.z.maintenance.main.model.dao.services;
+package no.systema.jservices.skat.z.maintenance.felles.model.dao.services;
 import java.util.*;
+
+import no.systema.jservices.skat.z.maintenance.main.model.dao.services.IDaoServices;
 
 
 /**

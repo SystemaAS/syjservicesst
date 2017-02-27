@@ -1,6 +1,6 @@
-package no.systema.jservices.skat.z.maintenance.main.controller.rules;
+package no.systema.jservices.skat.z.maintenance.felles.controller.rules;
 
-import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DktvkDao;
+import no.systema.jservices.skat.z.maintenance.felles.model.dao.entities.DktvkDao;
 /**
  * 
  * @author oscardelatorre

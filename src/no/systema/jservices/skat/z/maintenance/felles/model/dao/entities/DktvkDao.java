@@ -1,4 +1,4 @@
-package no.systema.jservices.skat.z.maintenance.main.model.dao.entities;
+package no.systema.jservices.skat.z.maintenance.felles.model.dao.entities;
 import java.io.Serializable;
 import no.systema.jservices.model.dao.entities.IDao;
 
