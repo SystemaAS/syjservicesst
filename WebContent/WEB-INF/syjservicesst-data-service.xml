@@ -35,6 +35,12 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
+  <!-- SKAT MAINTENANCE SKAT EXPORT Dao's -->
+  <bean id="dktkdDaoServices" class="no.systema.jservices.skat.z.maintenance.skatexport.model.dao.services.DktkdDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+  
+  
  
   <!--///////////////////
         NativeExtractor 
