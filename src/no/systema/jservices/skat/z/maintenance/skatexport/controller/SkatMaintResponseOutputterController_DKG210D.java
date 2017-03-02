@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 
 //Application
 //import no.systema.jservices.model.dao.entities.GenericTableColumnsDao;
-import no.systema.jservices.skat.z.maintenance.main.controller.rules.DKX030R_U;
+import no.systema.jservices.skat.z.maintenance.skatexport.controller.rules.DKG210R_U;
 import no.systema.jservices.skat.z.maintenance.skatexport.model.dao.entities.DktkdDao;
 import no.systema.jservices.skat.z.maintenance.skatexport.model.dao.services.DktkdDaoServices;
 import no.systema.jservices.model.dao.services.BridfDaoServices;
@@ -137,22 +137,22 @@ public class SkatMaintResponseOutputterController_DKG210D {
 	 * PGM:		DKX030
 	 * Member: 	SKAT Maintenance - UPDATE SPECIFIC
 	 * 
-	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKX030R_U.do?user=OSCAR&mode=U/A/D
+	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKG210R_U.do?user=OSCAR&mode=U/A/D&dkkd_typ=001&dkkd_kd=01
 	 *
 	 * @param session
 	 * @param request
 	 * @return
 	 * 
 	 */
-	/*
-	@RequestMapping(value="syjsDKX030R_U.do", method={RequestMethod.GET, RequestMethod.POST})
+
+	@RequestMapping(value="syjsDKG210R_U.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String syjsR_U( HttpSession session, HttpServletRequest request) {
 		JsonResponseWriter jsonWriter = new JsonResponseWriter();
 		StringBuffer sb = new StringBuffer();
 		
 		try{
-			logger.info("Inside syjsDKX030R_U");
+			logger.info("Inside syjsDKG210R_U");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
 			String user = request.getParameter("user");
 			String mode = request.getParameter("mode");
@@ -164,18 +164,18 @@ public class SkatMaintResponseOutputterController_DKG210D {
 			StringBuffer dbErrorStackTrace = new StringBuffer();
 			
 			//bind attributes is any
-			DkxghDao dao = new DkxghDao();
+			DktkdDao dao = new DktkdDao();
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(dao);
             binder.bind(request);
-            logger.info("TGGNR:" + dao.getTggnr());
             //rules
-            DKX030R_U rulerLord = new DKX030R_U();
+            DKG210R_U rulerLord = new DKG210R_U();
 			//Start processing now
 			if(userName!=null && !"".equals(userName)){
 				int dmlRetval = 0;
 				if("D".equals(mode)){
 					if(rulerLord.isValidInputForDelete(dao, userName, mode)){
-						dmlRetval = this.DkxghDaoServices.delete(dao, dbErrorStackTrace);
+						logger.info("Before DELETE ...");
+						dmlRetval = this.dktkdDaoServices.delete(dao, dbErrorStackTrace);
 					}else{
 						//write JSON error output
 						errMsg = "ERROR on DELETE: invalid?  Try to check: <DaoServices>.delete";
@@ -185,12 +185,11 @@ public class SkatMaintResponseOutputterController_DKG210D {
 				}else{
 				  if(rulerLord.isValidInput(dao, userName, mode)){
 						logger.info("Before UPDATE ...");
-						List<DkxghDao> list = new ArrayList<DkxghDao>();
-						rulerLord.updateNumericFieldsIfNull(dao);
+						List<DktkdDao> list = new ArrayList<DktkdDao>();
 						
 						//do ADD
 						if("A".equals(mode)){
-							list = this.DkxghDaoServices.findByIdExactMatch(dao.getTggnr(), dbErrorStackTrace);
+							list = this.dktkdDaoServices.findById(dao.getDkkd_typ(), dao.getDkkd_kd(), dbErrorStackTrace);
 							
 							//check if there is already such a code. If it does, stop the update
 							if(list!=null && list.size()>0){
@@ -199,10 +198,12 @@ public class SkatMaintResponseOutputterController_DKG210D {
 								status = "error";
 								sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 							}else{
-								dmlRetval = this.DkxghDaoServices.insert(dao, dbErrorStackTrace);
+								logger.info("CREATE NEW - TYP:" + dao.getDkkd_typ() + " KODE:" + dao.getDkkd_kd());
+								dmlRetval = this.dktkdDaoServices.insert(dao, dbErrorStackTrace);
 							}
 						}else if("U".equals(mode)){
-							 dmlRetval = this.DkxghDaoServices.update(dao, dbErrorStackTrace);
+							logger.info("UPDATE - TYP:" + dao.getDkkd_typ() + " KODE:" + dao.getDkkd_kd());
+							 dmlRetval = this.dktkdDaoServices.update(dao, dbErrorStackTrace);
 						}
 						
 				  }else{
@@ -243,7 +244,7 @@ public class SkatMaintResponseOutputterController_DKG210D {
 		session.invalidate();
 		return sb.toString();
 	}
-	*/
+	
 	
 	//----------------
 	//WIRED SERVICES

@@ -122,7 +122,7 @@ public class DktkdDaoServicesImpl implements DktkdDaoServices {
 			DktkdDao dao = (DktkdDao)daoObj;
 			StringBuffer sql = new StringBuffer();
 			//DEBUG --> logger.info("mydebug");
-			sql.append(" INSERT INTO dktkd )");
+			sql.append(" INSERT INTO dktkd (dkkd_typ, dkkd_kd, dkkd_kd2, dkkd_kd3, dkkd_txt )");
 			sql.append(" VALUES( ?, ?, ?, ?, ? ) ");
 			//params
 			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { dao.getDkkd_typ(), dao.getDkkd_kd(), dao.getDkkd_kd2(), 

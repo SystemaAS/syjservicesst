@@ -2,6 +2,7 @@ package no.systema.jservices.skat.z.maintenance.skatexport.model.dao.entities;
 import java.io.Serializable;
 import no.systema.jservices.model.dao.entities.IDao;
 
+
 import java.math.BigDecimal;
 /**
  * All variables must be initialized to empty strings and NOT to NULL values
