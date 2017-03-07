@@ -171,10 +171,10 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
             DKT058R_U rulerLord = new DKT058R_U();
 			//Key population in order to check if the record exists (for CREATE new)
             Map params = new HashMap();
-			params.put("dkse_knr", dao.getDkse_knr());
+            params.put("dkse_knr", dao.getDkse_knr());
 			params.put("dkse_331", dao.getDkse_331());
-			params.put("dkse_34", dao.getDkse_34());
-			params.put("dkse_4421", dao.getDkse_4421());
+            if(dao.getDkse_34()!=null && !"".equals(dao.getDkse_34())){ params.put("dkse_34", dao.getDkse_34()); }
+            if(dao.getDkse_4421()!=null && !"".equals(dao.getDkse_4421())){ params.put("dkse_4421", dao.getDkse_4421()); }
 			
 			//Start processing now
             if(userName!=null && !"".equals(userName)){

@@ -45,10 +45,9 @@ public class DKT058R_U {
 		if( (user!=null && !"".equals(user)) && (mode!=null && !"".equals(mode)) ){
 			//check dao
 			if( (dao.getDkse_knr()!=null && !"".equals(dao.getDkse_knr())) &&
-				(dao.getDkse_331()!=null && !"".equals(dao.getDkse_331())) &&
-				(dao.getDkse_34()!=null && !"".equals(dao.getDkse_34())) &&
-				(dao.getDkse_4421()!=null && !"".equals(dao.getDkse_4421()))
-				
+				(dao.getDkse_331()!=null && !"".equals(dao.getDkse_331())) 
+				//N/A? (dao.getDkse_34()!=null && !"".equals(dao.getDkse_34())) &&
+				//N/A? (dao.getDkse_4421()!=null && !"".equals(dao.getDkse_4421()))
 				){
 				//OK
 			}else{
