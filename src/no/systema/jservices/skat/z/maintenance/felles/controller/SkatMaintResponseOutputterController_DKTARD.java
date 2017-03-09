@@ -1,4 +1,4 @@
-package no.systema.jservices.skat.z.maintenance.skatimport.controller;
+package no.systema.jservices.skat.z.maintenance.felles.controller;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,9 +29,9 @@ import javax.servlet.http.HttpSession;
 
 //Application
 //import no.systema.jservices.model.dao.entities.GenericTableColumnsDao;
-import no.systema.jservices.skat.z.maintenance.skatimport.controller.rules.DKT058R_U;
-import no.systema.jservices.common.dao.services.DktseDaoService;
-import no.systema.jservices.common.dao.DktseDao;
+import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKTARDR_U;
+import no.systema.jservices.common.dao.services.DktardDaoService;
+import no.systema.jservices.common.dao.DktardDao;
 import no.systema.jservices.common.json.JsonResponseWriter2;
 import no.systema.jservices.model.dao.services.BridfDaoServices;
 import no.systema.jservices.jsonwriter.JsonResponseWriter;
@@ -50,27 +50,28 @@ import no.systema.jservices.jsonwriter.JsonResponseWriter;
  */
 
 @Controller
-public class SkatImportMaintResponseOutputterController_DKT058 {
-	private static Logger logger = Logger.getLogger(SkatImportMaintResponseOutputterController_DKT058.class.getName());
+public class SkatMaintResponseOutputterController_DKTARD {
+	private static Logger logger = Logger.getLogger(SkatMaintResponseOutputterController_DKTARD.class.getName());
 	
 	/**
 	 * FreeForm Source:
-	 * 	 File: 		DKTSE
-	 * 	 PGM:		DKT058R
-	 * 	 Member: 	SKAT Import Maintenance - SELECT LIST or SELECT SPECIFIC
+	 * 	 File: 		DKTARD
+	 * 	 PGM:		DKTARDR
+	 * 	 Member: 	SKAT Felles Maintenance - SELECT LIST or SELECT SPECIFIC
 	 *  
 	 * 
 	 * @return
-	 * @Example SELECT *: http://gw.systema.no:8080/syjservicesst/syjsDKT058R.do?user=OSCAR&dkse_knr=0
-	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesst/syjsDKT058R.do?user=OSCAR&dkse_knr=0&dkse_331=4201000090
+	 * @Example SELECT *: http://gw.systema.no:8080/syjservicesst/syjsDKTARDR.do?user=OSCAR&dktard=66%
+	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesst/syjsDKTARDR.do?user=OSCAR&dktard01=0101210000&...
 	 * 
 	 */
-	@RequestMapping(value="syjsDKT058R.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="syjsDKTARDR.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String syjsRList( HttpSession session, HttpServletRequest request) {
-		JsonResponseWriter2<DktseDao> jsonWriter = new JsonResponseWriter2<DktseDao>();
+		String SQL_WILD_CARD = "%";
+		JsonResponseWriter2<DktardDao> jsonWriter = new JsonResponseWriter2<DktardDao>();
 		StringBuffer sb = new StringBuffer();
-		List<DktseDao> list = null;
+		List<DktardDao> list = null;
 		try{
 			logger.info("Inside syjsDKT058R");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
@@ -85,18 +86,31 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 			//Start processing now
 			if(userName!=null && !"".equals(userName)){
 				//bind attributes is any
-				DktseDao dao = new DktseDao();
+				DktardDao dao = new DktardDao();
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(dao);
 	            binder.bind(request);
 	            
 				//do SELECT
 				logger.info("Before SELECT ...");
-				Map<String, Object> params = new HashMap<String, Object>();
+				
+				//only if it is not an exact value. If not, then put a wild card to allow a wide - SQL LIKE instead of index-friendly "="
+				if(dao.getDktard01()!=null && !"".equals(dao.getDktard01()) ) {
+					if(dao.getDktard01().length()<10 ){  dao.setDktard01(dao.getDktard01() + SQL_WILD_CARD); }
+				}
+				if(dao.getDktard02()!=null && !"".equals(dao.getDktard02()) ) {
+					if(dao.getDktard02().length()<10 ){  dao.setDktard02(dao.getDktard02() + SQL_WILD_CARD); }
+				}
 				//put search columns as needed
-				if(dao.getDkse_knr()!=null && !"".equals(dao.getDkse_knr()) ) { params.put("dkse_knr", dao.getDkse_knr()); }
-				if(dao.getDkse_331()!=null && !"".equals(dao.getDkse_331()) ) { params.put("dkse_331", dao.getDkse_331()); }
-				//get list
-				list = this.dktseDaoService.findAll(params);
+				Map<String, Object> params = new HashMap<String, Object>();
+				if(dao.getDktard01()!=null && !"".equals(dao.getDktard01()) ) { params.put("dktard01", dao.getDktard01()); }
+				if(dao.getDktard02()!=null && !"".equals(dao.getDktard02()) ) { params.put("dktard02", dao.getDktard02()); }
+				//logger.info("PARAMS:" + dao.getDktard01());
+				list = new ArrayList<DktardDao>(); //default
+				if(this.isValidSearchListDao(dao)){
+					//get list only if dktard01 is present and > 1-character (to avoid to big results)
+					list = this.dktardDaoService.findAll(params);
+				}
+				
 				if (list != null){
 					sb.append(jsonWriter.setJsonResult_Common_GetList(userName, list));
 				}else{
@@ -125,15 +139,16 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 		return sb.toString();
 	}
 	
+	
 	/**
 	 * 
 	 * Update Database DML operations
-	 * File: 	DKTSE
-	 * PGM:		DKT058
+	 * File: 	DKTARD
+	 * PGM:		DKTARD
 	 * Member: 	SKAT Maintenance - UPDATE SPECIFIC
 	 * Note: This method does not contain UPDATE. Only CREATE/DELETE. Ref. AS400 UC (go dki: certifikatkoder)
 	 * 
-	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKT058R_U.do?user=OSCAR&mode=U/A/D&dkse_knr=0&dkse_331=...
+	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKTARDR_U.do?user=OSCAR&mode=U/A/D&dktard01=...
 	 *
 	 * @param session
 	 * @param request
@@ -141,14 +156,14 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 	 * 
 	 */
 	
-	@RequestMapping(value="syjsDKT058R_U.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="syjsDKTARDR_U.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String syjsR_U( HttpSession session, HttpServletRequest request) {
 		JsonResponseWriter jsonWriter = new JsonResponseWriter();
 		StringBuffer sb = new StringBuffer();
 		
 		try{
-			logger.info("Inside syjsDKT058R_U");
+			logger.info("Inside syjsDKTARDR_U");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
 			String user = request.getParameter("user");
 			String mode = request.getParameter("mode");
@@ -160,25 +175,25 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 			StringBuffer dbErrorStackTrace = new StringBuffer();
 			
 			//bind attributes is any
-			DktseDao dao = new DktseDao();
-			DktseDao resultDao = new DktseDao();
+			DktardDao dao = new DktardDao();
+			DktardDao resultDao = new DktardDao();
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(dao);
             binder.bind(request);
             //rules
-            DKT058R_U rulerLord = new DKT058R_U();
+            DKTARDR_U rulerLord = new DKTARDR_U();
 			//Key population in order to check if the record exists (for CREATE new)
             Map params = new HashMap();
-            params.put("dkse_knr", dao.getDkse_knr());
-			params.put("dkse_331", dao.getDkse_331());
-            if(dao.getDkse_34()!=null && !"".equals(dao.getDkse_34())){ params.put("dkse_34", dao.getDkse_34()); }
-            if(dao.getDkse_4421()!=null && !"".equals(dao.getDkse_4421())){ params.put("dkse_4421", dao.getDkse_4421()); }
+            params.put("dktard01", dao.getDktard01());
+			params.put("dktard02", dao.getDktard02());
+			params.put("dktard03", dao.getDktard03());
+			params.put("dktard48", dao.getDktard48());
 			
 			//Start processing now
             if(userName!=null && !"".equals(userName)){
 				if("D".equals(mode)){
 					if(rulerLord.isValidInputForDelete(dao, userName, mode)){
 						logger.info("Before DELETE ...");
-						this.dktseDaoService.deleteAll(params);
+						this.dktardDaoService.deleteAll(params);
 					}else{
 						//write JSON error output
 						errMsg = "ERROR on DELETE: invalid?  Try to check: <DaoServices>.delete";
@@ -188,15 +203,15 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 				}else{
 				  if(rulerLord.isValidInput(dao, userName, mode)){
 						logger.info("Before CREATE new ...");
-						List<DktseDao> list = new ArrayList<DktseDao>();
+						List<DktardDao> list = new ArrayList<DktardDao>();
 						if("A".equals(mode)){
-							list = this.dktseDaoService.findAll(params);
+							list = this.dktardDaoService.findAll(params);
 							if(list!=null && list.size()>0){
 								errMsg = "ERROR on CREATE/UPDATE: Record exists already";
 								status = "error";
 								sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 							}else{
-								resultDao = this.dktseDaoService.create(dao);
+								resultDao = this.dktardDaoService.create(dao);
 							}
 						}
 						if(resultDao == null){
@@ -236,16 +251,31 @@ public class SkatImportMaintResponseOutputterController_DKT058 {
 		logger.info(sb.toString());
 		return sb.toString();
 	}
-
+	/**
+	 * 
+	 * @param dao
+	 * @return
+	 */
+	private boolean isValidSearchListDao(DktardDao dao){
+		boolean retval = false;
+		//this key MUST exist. All other keys are not relevant for this method
+		if(dao.getDktard01()!=null && !"".equals(dao.getDktard01()) ){
+			if(dao.getDktard01().length() > 2){ //including wild card
+			  retval = true;
+			}
+		}
+		
+		return retval;
+	}
 	//----------------
 	//WIRED SERVICES
 	//----------------
-	@Qualifier ("dktseDaoService")
-	private DktseDaoService dktseDaoService;
+	@Qualifier ("dktardDaoService")
+	private DktardDaoService dktardDaoService;
 	@Autowired
 	@Required
-	public void setDktseDaoService (DktseDaoService value){ this.dktseDaoService = value; }
-	public DktseDaoService getDktseDaoService(){ return this.dktseDaoService; }
+	public void setDktardDaoService (DktardDaoService value){ this.dktardDaoService = value; }
+	public DktardDaoService getDktardDaoService(){ return this.dktardDaoService; }
 	
 	
 	
