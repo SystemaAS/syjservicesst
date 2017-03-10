@@ -221,7 +221,7 @@ public class SkatMaintResponseOutputterController_DKTARD {
 						if(resultDao == null){
 							errMsg = "ERROR on CREATE/UPDATE";
 							status = "error";
-							dbErrorStackTrace.append("Could not add dao=" + ReflectionToStringBuilder.toString(dao));
+							dbErrorStackTrace.append("Could not add/update dao=" + ReflectionToStringBuilder.toString(dao));
 							sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 						}else{
 							// OK UPDATE

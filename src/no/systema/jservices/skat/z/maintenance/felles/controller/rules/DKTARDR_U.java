@@ -44,8 +44,7 @@ public class DKTARDR_U {
 		if( (user!=null && !"".equals(user)) && (mode!=null && !"".equals(mode)) ){
 			if( (dao.getDktard01()!=null && !"".equals(dao.getDktard01())) &&
 					(dao.getDktard02()!=null && !"".equals(dao.getDktard02())) && 
-					(dao.getDktard03()!=null && !"".equals(dao.getDktard03())) && 
-					(dao.getDktard48()!=null && !"".equals(dao.getDktard48()))   ){
+					(dao.getDktard03()!=null && !"".equals(dao.getDktard03()))   ){
 				}else{
 					retval = false;
 				}
