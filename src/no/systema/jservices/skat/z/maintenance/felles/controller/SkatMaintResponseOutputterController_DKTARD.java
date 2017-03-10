@@ -29,12 +29,12 @@ import javax.servlet.http.HttpSession;
 
 //Application
 //import no.systema.jservices.model.dao.entities.GenericTableColumnsDao;
-import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKTARDR_U;
+import no.systema.jservices.model.dao.services.BridfDaoServices;
 import no.systema.jservices.common.dao.services.DktardDaoService;
 import no.systema.jservices.common.dao.DktardDao;
 import no.systema.jservices.common.json.JsonResponseWriter2;
-import no.systema.jservices.model.dao.services.BridfDaoServices;
 import no.systema.jservices.jsonwriter.JsonResponseWriter;
+import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKTARDR_U;
 //rules
 
 
@@ -70,10 +70,11 @@ public class SkatMaintResponseOutputterController_DKTARD {
 	public String syjsRList( HttpSession session, HttpServletRequest request) {
 		String SQL_WILD_CARD = "%";
 		JsonResponseWriter2<DktardDao> jsonWriter = new JsonResponseWriter2<DktardDao>();
+		
 		StringBuffer sb = new StringBuffer();
 		List<DktardDao> list = null;
 		try{
-			logger.info("Inside syjsDKT058R");
+			logger.info("Inside syjsDKTARDR");
 			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
 			String user = request.getParameter("user");
 			//Check ALWAYS user in BRIDF
