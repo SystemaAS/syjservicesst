@@ -181,7 +181,7 @@ public class SkatMaintResponseOutputterController_DKTARD {
             binder.bind(request);
             //rules
             DKTARDR_U rulerLord = new DKTARDR_U();
-			//Key population in order to check if the record exists (for CREATE new)
+			//Key population in order to check if the record exists (for CREATE) and DELETE.
             Map params = new HashMap();
             params.put("dktard01", dao.getDktard01());
 			params.put("dktard02", dao.getDktard02());
@@ -201,8 +201,8 @@ public class SkatMaintResponseOutputterController_DKTARD {
 					}
 				}else{
 				  if(rulerLord.isValidInput(dao, userName, mode)){
-						logger.info("Before CREATE new ...");
 						List<DktardDao> list = new ArrayList<DktardDao>();
+						//do ADD
 						if("A".equals(mode)){
 							list = this.dktardDaoService.findAll(params);
 							if(list!=null && list.size()>0){
@@ -210,8 +210,12 @@ public class SkatMaintResponseOutputterController_DKTARD {
 								status = "error";
 								sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 							}else{
+								logger.info("CREATE new ...");
 								resultDao = this.dktardDaoService.create(dao);
 							}
+						}else if("U".equals(mode)){
+								logger.info("UPDATE ...");
+								resultDao = this.dktardDaoService.update(dao);
 						}
 						if(resultDao == null){
 							errMsg = "ERROR on CREATE/UPDATE";
