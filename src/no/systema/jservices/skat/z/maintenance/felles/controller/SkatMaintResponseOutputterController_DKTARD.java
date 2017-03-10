@@ -186,7 +186,6 @@ public class SkatMaintResponseOutputterController_DKTARD {
             params.put("dktard01", dao.getDktard01());
 			params.put("dktard02", dao.getDktard02());
 			params.put("dktard03", dao.getDktard03());
-			params.put("dktard48", dao.getDktard48());
 			
 			//Start processing now
             if(userName!=null && !"".equals(userName)){
