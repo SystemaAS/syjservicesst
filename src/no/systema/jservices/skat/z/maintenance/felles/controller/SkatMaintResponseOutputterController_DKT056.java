@@ -34,7 +34,7 @@ import no.systema.jservices.common.dao.services.DkthaDaoService;
 import no.systema.jservices.common.dao.DkthaDao;
 import no.systema.jservices.common.json.JsonResponseWriter2;
 import no.systema.jservices.jsonwriter.JsonResponseWriter;
-import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKTARDR_U;
+import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKT056R_U;
 //rules
 
 
@@ -141,7 +141,7 @@ public class SkatMaintResponseOutputterController_DKT056 {
 	 * @return
 	 * 
 	 */
-	/*
+	
 	@RequestMapping(value="syjsDKT056R_U.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String syjsR_U( HttpSession session, HttpServletRequest request) {
@@ -161,17 +161,15 @@ public class SkatMaintResponseOutputterController_DKT056 {
 			StringBuffer dbErrorStackTrace = new StringBuffer();
 			
 			//bind attributes is any
-			DktardDao dao = new DktardDao();
-			DktardDao resultDao = new DktardDao();
+			DkthaDao dao = new DkthaDao();
+			DkthaDao resultDao = new DkthaDao();
 			ServletRequestDataBinder binder = new ServletRequestDataBinder(dao);
             binder.bind(request);
             //rules
-            DKTARDR_U rulerLord = new DKTARDR_U();
+            DKT056R_U rulerLord = new DKT056R_U();
 			//Key population in order to check if the record exists (for CREATE) and DELETE.
             Map params = new HashMap();
-            params.put("dktard01", dao.getDktard01());
-			params.put("dktard02", dao.getDktard02());
-			params.put("dktard03", dao.getDktard03());
+            params = dao.getKeys();
 			
 			//Start processing now
             if(userName!=null && !"".equals(userName)){
@@ -187,10 +185,10 @@ public class SkatMaintResponseOutputterController_DKT056 {
 					}
 				}else{
 				  if(rulerLord.isValidInput(dao, userName, mode)){
-						List<DktardDao> list = new ArrayList<DktardDao>();
+						List<DkthaDao> list = new ArrayList<DkthaDao>();
 						//do ADD
 						if("A".equals(mode)){
-							list = this.dktardDaoService.findAll(params);
+							list = this.dkthaDaoService.findAll(params);
 							if(list!=null && list.size()>0){
 								errMsg = "ERROR on CREATE/UPDATE: Record exists already";
 								status = "error";
@@ -241,7 +239,7 @@ public class SkatMaintResponseOutputterController_DKT056 {
 		return sb.toString();
 	
 	}
-	*/
+	
 	
 	
 	//----------------
