@@ -40,6 +40,13 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
+  <!-- SKAT MAINTENANCE NCTS general -->
+  <bean id="dkxkodfDaoServices" class="no.systema.jservices.skat.z.maintenance.skatncts.model.dao.services.DkxkodfDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+  
+  
+  
   
  
   <!--///////////////////
