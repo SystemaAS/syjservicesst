@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
 //Application
 //import no.systema.jservices.model.dao.entities.GenericTableColumnsDao;
 import no.systema.jservices.skat.z.maintenance.skatncts.model.dao.entities.DkxkodfDao;
+import no.systema.jservices.skat.z.maintenance.skatncts.controller.rules.DKX001R_U;
 import no.systema.jservices.skat.z.maintenance.skatncts.model.dao.services.DkxkodfDaoServices;
 import no.systema.jservices.model.dao.services.BridfDaoServices;
 import no.systema.jservices.jsonwriter.JsonResponseWriter;
@@ -124,6 +125,122 @@ public class SkatMaintResponseOutputterController_DKX001R {
 				sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
 			}
 		
+		}catch(Exception e){
+			//write std.output error output
+			Writer writer = new StringWriter();
+			PrintWriter printWriter = new PrintWriter(writer);
+			e.printStackTrace(printWriter);
+			return "ERROR [JsonResponseOutputterController]" + writer.toString();
+		}
+		session.invalidate();
+		return sb.toString();
+	}
+	
+	
+	/**
+	 * 
+	 * Update Database DML operations
+	 * File: 	DKXKODF
+	 * PGM:		DKX001
+	 * Member: 	SKAT Maintenance NCTS - UPDATE SPECIFIC
+	 * 
+	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKX001R_U.do?user=OSCAR&mode=U/A/D&tkunik=031&tkkode=TIR
+	 *
+	 * @param session
+	 * @param request
+	 * @return
+	 * 
+	 */
+
+	@RequestMapping(value="syjsDKX001R_U.do", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String syjsR_U( HttpSession session, HttpServletRequest request) {
+		JsonResponseWriter jsonWriter = new JsonResponseWriter();
+		StringBuffer sb = new StringBuffer();
+		
+		try{
+			logger.info("Inside syjsDKX001R_U");
+			//TEST-->logger.info("Servlet root:" + AppConstants.VERSION_SYJSERVICES);
+			String user = request.getParameter("user");
+			String mode = request.getParameter("mode");
+			//Check ALWAYS user in BRIDF
+            String userName = this.bridfDaoServices.findNameById(user);
+            //DEBUG --> logger.info("USERNAME:" + userName + "XX");
+            String errMsg = "";
+			String status = "ok";
+			StringBuffer dbErrorStackTrace = new StringBuffer();
+			
+			//bind attributes is any
+			DkxkodfDao dao = new DkxkodfDao();
+			ServletRequestDataBinder binder = new ServletRequestDataBinder(dao);
+            binder.bind(request);
+            //rules
+            DKX001R_U rulerLord = new DKX001R_U();
+			//Start processing now
+			if(userName!=null && !"".equals(userName)){
+				int dmlRetval = 0;
+				if("D".equals(mode)){
+					if(rulerLord.isValidInputForDelete(dao, userName, mode)){
+						logger.info("Before DELETE ...");
+						dmlRetval = this.dkxkodfDaoServices.delete(dao, dbErrorStackTrace);
+					}else{
+						//write JSON error output
+						errMsg = "ERROR on DELETE: invalid?  Try to check: <DaoServices>.delete";
+						status = "error";
+						sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
+					}
+				}else{
+				  if(rulerLord.isValidInput(dao, userName, mode)){
+						logger.info("Before UPDATE ...");
+						List<DkxkodfDao> list = new ArrayList<DkxkodfDao>();
+						
+						//do ADD
+						if("A".equals(mode)){
+							list = this.dkxkodfDaoServices.findById(dao.getTkunik(), dao.getTkkode(), dbErrorStackTrace);
+							
+							//check if there is already such a code. If it does, stop the update
+							if(list!=null && list.size()>0){
+								//write JSON error output
+								errMsg = "ERROR on UPDATE: Code exists already";
+								status = "error";
+								sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
+							}else{
+								logger.info("CREATE NEW - TYP:" + dao.getTkunik() + " KODE:" + dao.getTkkode());
+								dmlRetval = this.dkxkodfDaoServices.insert(dao, dbErrorStackTrace);
+							}
+						}else if("U".equals(mode)){
+							logger.info("UPDATE - TYP:" + dao.getTkunik() + " KODE:" + dao.getTkkode());
+							 dmlRetval = this.dkxkodfDaoServices.update(dao, dbErrorStackTrace);
+						}
+						
+				  }else{
+						//write JSON error output
+						errMsg = "ERROR on UPDATE: invalid (rulerLord)?  Try to check: <DaoServices>.update";
+						status = "error";
+						sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
+				  }
+				}
+				//----------------------------------
+				//check returns from dml operations
+				//----------------------------------
+				if(dmlRetval<0){
+					//write JSON error output
+					errMsg = "ERROR on UPDATE: invalid?  Try to check: <DaoServices>.insert/update/delete";
+					status = "error";
+					sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
+				}else{
+					//OK UPDATE
+					sb.append(jsonWriter.setJsonSimpleValidResult(userName, status));
+				}
+				
+			}else{
+				//write JSON error output
+				errMsg = "ERROR on UPDATE";
+				status = "error";
+				dbErrorStackTrace.append("request input parameters are invalid: <user>, <other mandatory fields>");
+				sb.append(jsonWriter.setJsonSimpleErrorResult(userName, errMsg, status, dbErrorStackTrace));
+			}
+			
 		}catch(Exception e){
 			//write std.output error output
 			Writer writer = new StringWriter();

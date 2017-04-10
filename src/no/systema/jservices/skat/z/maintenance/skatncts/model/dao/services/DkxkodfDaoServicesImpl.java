@@ -52,17 +52,17 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 	 */
 	public List findById (String code, String id, StringBuffer errorStackTrace ){
 		List<DkxkodfDao> retval = new ArrayList<DkxkodfDao>();
-		String WILDCARD = "%";
+		//String WILDCARD = "%";
 		try{
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append(this.getSELECT_FROM_CLAUSE());
 			//WHERE
 			sql.append(" where tkunik = ?  ");
-			sql.append(" and tkkode like ?  ");
+			sql.append(" and tkkode = ?  ");
 			sql.append(" order by tkunik ");
 			
-			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { code, WILDCARD + id + WILDCARD }, new DkxkodfMapper());
+			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { code, id }, new DkxkodfMapper());
 			
 		}catch(Exception e){
 			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
@@ -92,22 +92,18 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 	/**
 	 * 
 	 */
-	public int insert(Object dao, StringBuffer errorStackTrace){
+	public int insert(Object daoObj, StringBuffer errorStackTrace){
 		int retval = 0;
-		/*try{
-			DkxghDao dao = (DkxghDao)daoObj;
+		
+		try{
+			DkxkodfDao dao = (DkxkodfDao)daoObj;
 			StringBuffer sql = new StringBuffer();
 			//DEBUG --> logger.info("mydebug");
-			//sql.append(" INSERT INTO dkxgh (tggnr, tgkna, tgtina, tgnaa, tgada1, tgpna, tgpsa, tglka, tgtsd, tggty, ");
-			//sql.append(" tggfv, tgakny, tgakgm, tggbl, tggvk, tggblb, tgprm ) ");
-			
-			//sql.append(" VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ");
-			//sql.append(" ?, ?, ?, ?, ?, ?, ? ) ");
+			sql.append(" INSERT INTO dkxkodf (tkunik, tkkode, tktxtn, tktxte) ");
+			sql.append(" VALUES( ?, ?, ?, ? ) ");
 			
 			//params
-			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { dao.getTggnr(), dao.getTgkna(), dao.getTgtina(), dao.getTgnaa(), dao.getTgada1(),
-				dao.getTgpna(), dao.getTgpsa(), dao.getTglka(), dao.getTgtsd(), dao.getTggty(), dao.getTggfv(), dao.getTgakny(), dao.getTgakgm(), dao.getTggbl(),  
-				dao.getTggvk(), dao.getTggblb(), dao.getTgprm()  } );
+			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { dao.getTkunik(), dao.getTkkode(), dao.getTktxtn(), dao.getTktxte()  } );
 			
 		}catch(Exception e){
 			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
@@ -116,32 +112,31 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 			errorStackTrace.append(this.dbErrorMessageMgr.getJsonValidDbException(writer));
 			retval = -1;
 		}
-		*/
+		
 		return retval;
 	}
 	
 	/**
 	 * 
 	 */
-	public int update(Object dao, StringBuffer errorStackTrace){
+	public int update(Object daoObj, StringBuffer errorStackTrace){
 		int retval = 0;
-		/*
+
 		try{
-			DkxghDao dao = (DkxghDao)daoObj;
+			DkxkodfDao dao = (DkxkodfDao)daoObj;
 			StringBuffer sql = new StringBuffer();
-			sql.append(" UPDATE dkxgh SET  tgkna = ?, tgtina = ?, tgnaa = ?, tgada1 = ?, tgpna = ?, tgpsa = ?, tglka = ?, ");
-			sql.append(" tggty = ?, tggvk = ?, tggbl = ?, tggblb = ?, tgtsd = ?, tggfv = ?, tgakny = ?, tgakgm = ?, ");
-			sql.append(" tgprm = ?  ");
-			
+			sql.append(" UPDATE dkxkodf SET tktxtn = ?, tktxte = ?" );
 			//id's
-			sql.append(" WHERE tggnr = ? ");
+			sql.append(" WHERE tkunik = ? ");
+			sql.append(" AND tkkode = ? ");
+			
 			//params
 			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { 
-						dao.getTgkna(), dao.getTgtina(), dao.getTgnaa(), dao.getTgada1(), dao.getTgpna(), dao.getTgpsa(), dao.getTglka(),
-						dao.getTggty(), dao.getTggvk(), dao.getTggbl(), dao.getTggblb(), dao.getTgtsd(), dao.getTggfv(), dao.getTgakny(), dao.getTgakgm(),
-						dao.getTgprm(),
+						dao.getTktxtn(), dao.getTktxte(),
 						//id's
-						dao.getTggnr(),
+						dao.getTkunik(),
+						dao.getTkkode(),
+						
 						} );
 			
 		}catch(Exception e){
@@ -151,25 +146,25 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 			errorStackTrace.append(this.dbErrorMessageMgr.getJsonValidDbException(writer));
 			retval = -1;
 		}
-		*/
+		
 		return retval;
 	}
 	/**
 	 * 
 	 */
-	public int delete(Object dao, StringBuffer errorStackTrace){
+	public int delete(Object daoObj, StringBuffer errorStackTrace){
 		int retval = 0;
-		/*
+		
 		try{
-			DkxghDao dao = (DkxghDao)daoObj;
+			DkxkodfDao dao = (DkxkodfDao)daoObj;
 				
 			StringBuffer sql = new StringBuffer();
 			//DEBUG --> logger.info("mydebug");
-			sql.append(" DELETE from dkxgh ");
-			sql.append(" WHERE tggnr = ? ");		
-			
+			sql.append(" DELETE from dkxkodf ");
+			sql.append(" WHERE tkunik = ? ");		
+			sql.append(" AND tkkode = ? ");
 			//params
-			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { dao.getTggnr() } );
+			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { dao.getTkunik(), dao.getTkkode() } );
 			
 		}catch(Exception e){
 			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
@@ -178,7 +173,7 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 			errorStackTrace.append(this.dbErrorMessageMgr.getJsonValidDbException(writer));
 			retval = -1;
 		}
-		*/
+		
 		return retval;
 		
 	}
