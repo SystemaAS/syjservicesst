@@ -52,17 +52,17 @@ public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
 	 */
 	public List findById (String code, String id, StringBuffer errorStackTrace ){
 		List<DkxkodfDao> retval = new ArrayList<DkxkodfDao>();
-		//String WILDCARD = "%";
+		String WILDCARD = "%";
 		try{
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append(this.getSELECT_FROM_CLAUSE());
 			//WHERE
 			sql.append(" where tkunik = ?  ");
-			sql.append(" and tkkode = ?  ");
+			sql.append(" and tkkode LIKE ?  ");
 			sql.append(" order by tkunik ");
 			
-			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { code, id }, new DkxkodfMapper());
+			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { code, id + WILDCARD}, new DkxkodfMapper());
 			
 		}catch(Exception e){
 			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
