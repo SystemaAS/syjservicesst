@@ -130,7 +130,7 @@ public class SkatMaintResponseOutputterController_DKT055 {
 	 * File: 	DKTFI
 	 * PGM:		DKT055
 	 * Member: 	SKAT Maintenance - UPDATE SPECIFIC
-	 * Note: This method does not contain UPDATE. Only CREATE/DELETE. Ref. AS400 UC (go dki: certifikatkoder)
+	 * Note: This method does not contain UPDATE. Only CREATE/DELETE. Ref. AS400 UC
 	 * 
 	 * @Example UPDATE: http://gw.systema.no:8080/syjservicesst/syjsDKT055R_U.do?user=OSCAR&mode=U/A/D&dkt...
 	 *
@@ -139,7 +139,7 @@ public class SkatMaintResponseOutputterController_DKT055 {
 	 * @return
 	 * 
 	 */
-	/*
+	
 	@RequestMapping(value="syjsDKT055R_U.do", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String syjsR_U( HttpSession session, HttpServletRequest request) {
@@ -167,16 +167,17 @@ public class SkatMaintResponseOutputterController_DKT055 {
             DKT055R_U rulerLord = new DKT055R_U();
 			//Key population in order to check if the record exists (for CREATE) and DELETE.
             Map params = new HashMap();
-            params.put("dktard01", dao.getDktard01());
-			params.put("dktard02", dao.getDktard02());
-			params.put("dktard03", dao.getDktard03());
+            params.put("dktf_0004t", dao.getDktf_0004t());
+			params.put("dktf_0010t", dao.getDktf_0010t());
+			params.put("dktf_0004p", dao.getDktf_0004p());
+			params.put("dktf_0010p", dao.getDktf_0010p());
 			
 			//Start processing now
             if(userName!=null && !"".equals(userName)){
 				if("D".equals(mode)){
 					if(rulerLord.isValidInputForDelete(dao, userName, mode)){
 						logger.info("Before DELETE ...");
-						this.dktardDaoService.deleteAll(params);
+						this.dktfiDaoService.deleteAll(params);
 					}else{
 						//write JSON error output
 						errMsg = "ERROR on DELETE: invalid?  Try to check: <DaoServices>.delete";
@@ -238,7 +239,7 @@ public class SkatMaintResponseOutputterController_DKT055 {
 		logger.info(sb.toString());
 		return sb.toString();
 	}
-	*/
+	
 	
 	//----------------
 	//WIRED SERVICES

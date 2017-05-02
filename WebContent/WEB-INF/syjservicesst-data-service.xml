@@ -45,9 +45,6 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
-  
-  
-  
  
   <!--///////////////////
         NativeExtractor 
