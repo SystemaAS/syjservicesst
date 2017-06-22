@@ -261,7 +261,7 @@ public class SkatMaintResponseOutputterController_DKX001R {
 	@Autowired
 	@Required
 	public void setDkxkodfDaoServices (DkxkodfDaoServices value){ this.dkxkodfDaoServices = value; }
-	public DkxkodfDaoServices getTrkodfDaoServices(){ return this.dkxkodfDaoServices; }
+	public DkxkodfDaoServices getDkxkodfDaoServices(){ return this.dkxkodfDaoServices; }
 
 	
 	@Qualifier ("bridfDaoServices")
