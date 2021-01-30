@@ -29,6 +29,7 @@ public class DkekDaoServicesImpl implements DkekDaoServices {
 		List<DkekDao> retval = new ArrayList<DkekDao>();
 		
 		try{
+				
 			StringBuffer sql = new StringBuffer();
 			sql.append(this.getSELECT_FROM_CLAUSE());
 			sql.append(" where dkek_knr = ? ");

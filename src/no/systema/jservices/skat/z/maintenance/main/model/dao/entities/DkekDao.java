@@ -16,6 +16,7 @@ import lombok.Data;
  */
 @Data
 public class DkekDao implements Serializable, IDao {
+	private String knavn = ""; //from cundf
 		                       								//Start/end_pos Byte Dig Dec Type
 	private String dkek_knr = ""; //   Kundens kundenr          1     8      8   8   0 S  
 	private String dkek_vnr = ""; //   Kundens varenr           9      36    28           A (Artikkelnr)  
@@ -41,6 +42,6 @@ public class DkekDao implements Serializable, IDao {
 	private String dkek_449a = "";//   oplysningstype kode      282  301   20         a
 	private String dkek_49 = "";  //   id af oplag              302  318   17          a
 	private String dkek_bem1 = "";//   bemærkninger             319  388   70         a
-
+	
 		
 }
