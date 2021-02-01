@@ -39,6 +39,10 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
+  <bean id="dkevDaoServices" class="no.systema.jservices.skat.skatexport.model.dao.services.DkevDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+  
   
   
   <!-- SKAT MAINTENANCE SKAT EXPORT Dao's -->
