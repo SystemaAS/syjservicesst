@@ -43,6 +43,9 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
+  <bean id="dkxvDaoServices" class="no.systema.jservices.skat.nctsexport.model.dao.services.DkxvDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
   
   
   <!-- SKAT MAINTENANCE SKAT EXPORT Dao's -->
