@@ -34,6 +34,9 @@
   <bean id="dkxghDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DkxghDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
+  <bean id="dkxhDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DkxhDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
   
   <bean id="dkekDaoServices" class="no.systema.jservices.skat.z.maintenance.main.model.dao.services.DkekDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>

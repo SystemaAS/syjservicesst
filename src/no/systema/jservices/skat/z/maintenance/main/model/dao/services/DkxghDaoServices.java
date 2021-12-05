@@ -10,4 +10,5 @@ import java.util.*;
  */
 public interface DkxghDaoServices extends IDaoServices { 
 	public List findByIdExactMatch (String id, StringBuffer errorStackTrace );
+	public int adjustBruktGuarantee (Object obj, StringBuffer errorStackTrace );
 }

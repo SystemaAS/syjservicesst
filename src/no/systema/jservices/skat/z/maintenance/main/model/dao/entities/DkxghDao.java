@@ -123,7 +123,10 @@ public class DkxghDao implements Serializable, IDao {
 	private String tggfv = ""; 
 	public String getTggfvPropertyName (){ return "tggfv"; }
 	public void setTggfv (String value){ this.tggfv = value;   }   
-	public String getTggfv (){ return this.tggfv;   }              
+	public String getTggfv (){ return this.tggfv;   }
+	public static void main(String[] args) {
+		
+	}              
 		
 	
 }

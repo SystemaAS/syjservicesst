@@ -125,6 +125,38 @@ public class DkxghDaoServicesImpl implements DkxghDaoServices {
 		
 		return retval;
 	}
+	
+	/**
+	 * Used when adjusting the used (brukt) guarantee
+	 */
+	public int adjustBruktGuarantee (Object daoObj, StringBuffer errorStackTrace ){
+		
+		int retval = 0;
+		
+		try{
+			DkxghDao dao = (DkxghDao)daoObj;
+			StringBuffer sql = new StringBuffer();
+			sql.append(" UPDATE dkxgh SET  tggblb = ?  ");
+			//id's
+			sql.append(" WHERE tggnr = ? ");
+			//params
+			retval = this.jdbcTemplate.update( sql.toString(), new Object[] { 
+						dao.getTggblb(),
+						//id's
+						dao.getTggnr(),
+						} );
+			
+		}catch(Exception e){
+			Writer writer = this.dbErrorMessageMgr.getPrintWriter(e);
+			logger.info(writer.toString());
+			//Chop the message to comply to JSON-validation
+			errorStackTrace.append(this.dbErrorMessageMgr.getJsonValidDbException(writer));
+			retval = -1;
+		}
+		return retval;
+	
+	}
+	
 	/**
 	 * UPDATE
 	 */
