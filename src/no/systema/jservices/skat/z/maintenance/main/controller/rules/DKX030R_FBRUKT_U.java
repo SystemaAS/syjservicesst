@@ -1,7 +1,7 @@
 package no.systema.jservices.skat.z.maintenance.main.controller.rules;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.*;
 
 import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DkxhDao;
 
@@ -11,7 +11,7 @@ import no.systema.jservices.skat.z.maintenance.main.model.dao.entities.DkxhDao;
  * @date Dec, 2021
  */
 public class DKX030R_FBRUKT_U {
-	private static Logger logger = Logger.getLogger(DKX030R_FBRUKT_U.class.getName());
+	private static Logger logger = LogManager.getLogger(DKX030R_FBRUKT_U.class.getName());
 	
 	/**
 	 * 

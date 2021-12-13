@@ -1,6 +1,6 @@
 package no.systema.jservices.skat.z.maintenance.skatexport.model.dao.mapper;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.*;
 import org.springframework.jdbc.core.RowMapper;
 
 import no.systema.jservices.skat.z.maintenance.skatexport.model.dao.entities.DktkdDao;
@@ -18,7 +18,7 @@ import java.util.List;
  * 
  */
 public class DktkdMapper implements RowMapper {
-	private static Logger logger = Logger.getLogger(DktkdMapper.class.getName());
+	private static Logger logger = LogManager.getLogger(DktkdMapper.class.getName());
 	
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
     	DktkdDao dao = new DktkdDao();
