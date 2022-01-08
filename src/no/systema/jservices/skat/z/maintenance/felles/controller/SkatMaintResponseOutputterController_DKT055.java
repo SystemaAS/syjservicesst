@@ -10,7 +10,7 @@ import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  
-import org.apache.logging.log4j.*;
+import org.slf4j.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -51,7 +51,7 @@ import no.systema.jservices.skat.z.maintenance.felles.controller.rules.DKT055R_U
 
 @Controller
 public class SkatMaintResponseOutputterController_DKT055 {
-	private static Logger logger = LogManager.getLogger(SkatMaintResponseOutputterController_DKT055.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(SkatMaintResponseOutputterController_DKT055.class.getName());
 	
 	/**
 	 * FreeForm Source:

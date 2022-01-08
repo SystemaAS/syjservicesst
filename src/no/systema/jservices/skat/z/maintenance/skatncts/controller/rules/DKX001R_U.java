@@ -1,6 +1,6 @@
 package no.systema.jservices.skat.z.maintenance.skatncts.controller.rules;
 
-import org.apache.logging.log4j.*;
+import org.slf4j.*;
 
 import no.systema.jservices.skat.z.maintenance.skatncts.controller.SkatMaintResponseOutputterController_DKX001R;
 import no.systema.jservices.skat.z.maintenance.skatncts.model.dao.entities.DkxkodfDao;
@@ -10,7 +10,7 @@ import no.systema.jservices.skat.z.maintenance.skatncts.model.dao.entities.Dkxko
  * @date Apr 10, 2017
  */
 public class DKX001R_U {
-	private static Logger logger = LogManager.getLogger(DKX001R_U.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(DKX001R_U.class.getName());
 	
 	/**
 	 * 

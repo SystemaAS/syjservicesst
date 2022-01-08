@@ -2,7 +2,7 @@ package no.systema.jservices.skat.skatexport.model.dao.services;
 import java.io.Writer;
 import java.util.*;
 
-import org.apache.logging.log4j.*;
+import org.slf4j.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import no.systema.jservices.skat.skatexport.model.dao.entities.DkevDao;
@@ -16,7 +16,7 @@ import no.systema.main.util.DbErrorMessageManager;
  * 
  */
 public class DkevDaoServicesImpl implements DkevDaoServices {
-	private static Logger logger = LogManager.getLogger(DkevDaoServicesImpl.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(DkevDaoServicesImpl.class.getName());
 	private DbErrorMessageManager dbErrorMessageMgr = new DbErrorMessageManager();
 	
 	

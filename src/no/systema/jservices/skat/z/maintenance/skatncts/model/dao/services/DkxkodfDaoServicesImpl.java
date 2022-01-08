@@ -2,7 +2,7 @@ package no.systema.jservices.skat.z.maintenance.skatncts.model.dao.services;
 import java.io.Writer;
 import java.util.*;
 
-import org.apache.logging.log4j.*;
+import org.slf4j.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import no.systema.jservices.skat.z.maintenance.skatncts.model.dao.mapper.DkxkodfMapper;
@@ -17,7 +17,7 @@ import no.systema.main.util.DbErrorMessageManager;
  * 
  */
 public class DkxkodfDaoServicesImpl implements DkxkodfDaoServices {
-	private static Logger logger = LogManager.getLogger(DkxkodfDaoServicesImpl.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(DkxkodfDaoServicesImpl.class.getName());
 	private DbErrorMessageManager dbErrorMessageMgr = new DbErrorMessageManager();
 	
 	

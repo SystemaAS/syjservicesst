@@ -10,7 +10,7 @@ import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang3.StringUtils;
  
-import org.apache.logging.log4j.*;
+import org.slf4j.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -53,7 +53,7 @@ import no.systema.jservices.jsonwriter.JsonResponseWriter;
 
 @Controller
 public class SkatMaintResponseOutputterController_DKX030_FBRUKT {
-	private static Logger logger = LogManager.getLogger(SkatMaintResponseOutputterController_DKX030_FBRUKT.class.getName());
+	private static Logger logger = LoggerFactory.getLogger(SkatMaintResponseOutputterController_DKX030_FBRUKT.class.getName());
 	
 	/**
 	 * 
