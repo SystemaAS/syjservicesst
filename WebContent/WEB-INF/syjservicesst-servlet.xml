@@ -30,7 +30,8 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
                 </bean>
                 <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
+                <!-- Spring 4.3 depracated ... <bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/> use: AllEncompassingFormHttpMessageConverter -->
+                <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
             </list>
         </property>
