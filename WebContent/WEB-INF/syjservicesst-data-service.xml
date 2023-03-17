@@ -42,6 +42,10 @@
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
   
+  <bean id="dkehDaoServices" class="no.systema.jservices.skat.skatexport.model.dao.services.DkehDaoServicesImpl">
+      <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
+  </bean>
+  
   <bean id="dkevDaoServices" class="no.systema.jservices.skat.skatexport.model.dao.services.DkevDaoServicesImpl">
       <property name="jdbcTemplate"><ref bean="jdbcTemplate"/></property>
   </bean>
