@@ -41,7 +41,7 @@ public class DkehDaoServicesImpl implements DkehDaoServices {
 			StringBuffer sql = new StringBuffer();
 			
 			sql.append(" select * from dkeh " );
-			sql.append(" where dkeh_07 = ? ");
+			sql.append(" where dkeh_07 = ? "); //tuillid = Lrn
 			
 			retval = this.jdbcTemplate.query( sql.toString(), new Object[] { lrn }, new DkehMapper());
 		}catch(Exception e){

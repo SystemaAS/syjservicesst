@@ -27,6 +27,8 @@ public class DkehDao implements Serializable, IDao {
 	private String dkeh_syst = ""; //
 	private String dkeh_mrn = ""; // MRN
 	private String dkeh_07 = ""; // LRN
+	private String dkeh_r011 = "";//1.1Ang.type
+	private String dkeh_r012 = "";//1.2EU ang.art 
 	
 		
 }
